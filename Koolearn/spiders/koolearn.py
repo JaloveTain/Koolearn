@@ -11,6 +11,14 @@ class KoolearnSpider(scrapy.Spider):
     end_url = "?yyue=a21bo.50862.201879"
 
     def parse(self, response):
+
+        # 处理500
+        if response.status == 500:
+            itemNum = self.txt_wrap_by('-', '.', response.url)[6:10]
+            new_itemNum_url = 'http://flow.koolearn.com/shiti/list-1-1-0-' + itemNum + '.html?yyue=a21bo.50862.201879'
+            yield scrapy.Request(new_itemNum_url, self.parse)
+
+
         # 年级
         # Item['grade'] = response.xpath("//div[@class='filter-item g-clear'][1]//li[@class='active']/a/text())").extract()[0]
         
@@ -82,9 +90,16 @@ class KoolearnSpider(scrapy.Spider):
             item['answer_extend_link'] = self.base_url + response.xpath("/html/body/div[1]/div[2]/div[2]/div[3]/div[2]/a[2]/@href").extract()[0] + self.end_url
             item['answer_explain'] = ""
         
-        print(item)
-        # yield item
+        # print(item)
+        yield item
 
 
 
-       
+    #取字符串中两个符号之间
+    def txt_wrap_by(self,start_str, end, html):
+        start = html.find(start_str)
+        if start >= 0:
+            start += len(start_str)
+            end = html.find(end, start)
+            if end >= 0:
+                return html[start:end].strip()   
