@@ -15,7 +15,7 @@ class KoolearnSpider(scrapy.Spider):
         # 处理500
         if response.status == 500:
             itemNum = self.txt_wrap_by('-', '.', response.url)[6:10]
-            new_itemNum_url = 'http://flow.koolearn.com/shiti/list-1-1-0-' + itemNum + '.html?yyue=a21bo.50862.201879'
+            new_itemNum_url = 'http://flow.koolearn.com/shiti/list-1-1-0-' + str(int(itemNum)+1) + '.html?yyue=a21bo.50862.201879'
             yield scrapy.Request(new_itemNum_url, self.parse)
 
 
