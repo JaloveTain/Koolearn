@@ -51,6 +51,8 @@ class KoolearnSpider(scrapy.Spider):
 
     def answer_parse(self, response):
         item = KoolearnItem()
+
+        item['q_link'] = response.url
         
         # xpath解析response
         if len(response.xpath("/html/body/div[1]/div[2]/div[1]/a[1]/text()")) == 0:
@@ -88,15 +90,15 @@ class KoolearnSpider(scrapy.Spider):
         else:
             item['difficulty_level'] = response.xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[1]/label[2]/span[2]/text()").extract()[0]
 
-        if len(response.xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[2]/div/text()")) == 0:
-            item['question_item'] = ""
+        if len(response.xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[2]")) == 0:
+            item['question_value'] = ""
         else:
-            item['question_value'] = response.xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[2]/div/text()").extract()
+            item['question_value'] = response.xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[2]").extract()
 
-        if len(response.xpath("//*[@id='i-tab-content']/div/text()")) == 0:
+        if len(response.xpath("//*[@id='i-tab-content']")) == 0:
             item['answer_value'] = ""
         else:
-            item['answer_value'] = response.xpath("//*[@id='i-tab-content']/div/text()").extract()[0]
+            item['answer_value'] = response.xpath("//*[@id='i-tab-content']").extract()[0]
         
         if len(response.xpath("//*[@id='i-tab-content1']/div/text()")): 
             if len(response.xpath("/html/body/div[1]/div[2]/div[2]/div[4]/div[2]/a[2]/@href")) == 0:

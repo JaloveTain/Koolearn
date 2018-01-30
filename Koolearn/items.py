@@ -16,6 +16,7 @@ class KoolearnItem(scrapy.Item):
     grade = scrapy.Field() # 年级: 高中,初中
     subject = scrapy.Field() # 学科：语文,数学...
     s_type = scrapy.Field() # 试卷
+    q_link = scrapy.Field() # 题目链接
     question_num = scrapy.Field() # 单选,多选
     question_type = scrapy.Field() # 题目类型
     difficulty_level = scrapy.Field() # 难度等级
