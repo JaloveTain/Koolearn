@@ -12,6 +12,7 @@ from scrapy.contrib.pipeline.images import ImagesPipeline
 import scrapy
 from Koolearn.settings import IMAGES_STORE as images_store
 
+# 存入mongodb
 class MongoPipeline(object):
 
     MONGO_IP = 'localhost'
@@ -41,7 +42,8 @@ class ImagesPipeline(ImagesPipeline):
             yield scrapy.Request('http:' + image_link)
         else:
             return item
-
+    
+    # 处理图片,将图片命名为url(去除./)
     def item_completed(self, results, item, info):
         image_path = [x['path'] for ok, x in results if ok]
         os.rename(images_store + image_path[0], images_store + "full/" + item['question_img_link'].replace('/','').replace('.',''))
