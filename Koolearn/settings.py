@@ -16,6 +16,8 @@ NEWSPIDER_MODULE = 'Koolearn.spiders'
 
 FEED_EXPORT_ENCODING='utf-8'
 
+HTTPERROR_ALLOWED_CODES = [500]
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'User-Agent:Mozilla/5.0(Windows;U;WindowsNT6.1;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'
 
