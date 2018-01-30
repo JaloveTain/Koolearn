@@ -18,6 +18,8 @@ FEED_EXPORT_ENCODING='utf-8'
 
 HTTPERROR_ALLOWED_CODES = [500]
 
+IMAGES_STORE = '/home/xjx/Koolearnimage/'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'User-Agent:Mozilla/5.0(Windows;U;WindowsNT6.1;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'
 
@@ -67,9 +69,10 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'Koolearn.pipelines.KoolearnPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'Koolearn.pipelines.MongoPipeline': 300,
+    'Koolearn.pipelines.ImagesPipeline': 200,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

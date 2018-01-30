@@ -6,13 +6,13 @@ import time
 class KoolearnSpider(scrapy.Spider):
     name = 'koolearn'
     # allowed_domains = ['']
-    start_urls = []
+    start_urls = ['http://flow.koolearn.com/shiti/list-1-4-0-1.html']
 
     begin_url = 'http://flow.koolearn.com/shiti/list-{}-{}-0-1.html?yyue=a21bo.50862.201879'
 
-    for i in range(1, 3):
-        for j in range(1, 10):
-            start_urls.append(begin_url.format(i, j))
+    #for i in range(1, 3):
+    #    for j in range(1, 10):
+    #        start_urls.append(begin_url.format(i, j))
 
     base_url = "http://flow.koolearn.com"
     end_url = "?yyue=a21bo.50862.201879"
@@ -115,7 +115,12 @@ class KoolearnSpider(scrapy.Spider):
             else:
                 item['answer_extend_link'] = self.base_url + response.xpath("/html/body/div[1]/div[2]/div[2]/div[3]/div[2]/a[2]/@href").extract()[0] + self.end_url
             item['answer_explain'] = ""
-        
+            
+        if len(response.xpath("//img[contains(@src,'picflow')]/@src")) == 0:
+            item['question_img_link'] = ""
+        else:
+            item['question_img_link'] = response.xpath("//img[contains(@src,'picflow')]/@src").extract()[0]
+
         # print(item)
         yield item
 

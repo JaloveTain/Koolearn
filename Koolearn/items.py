@@ -24,5 +24,5 @@ class KoolearnItem(scrapy.Item):
     answer_value = scrapy.Field() # 问题答案
     answer_extend_link = scrapy.Field() # 问题拓展链接
     answer_explain = scrapy.Field() # 答案解析
-
+    question_img_link = scrapy.Field() # 问题的图片
     
