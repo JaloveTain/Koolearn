@@ -6,13 +6,13 @@ import time
 class KoolearnSpider(scrapy.Spider):
     name = 'koolearn'
     # allowed_domains = ['']
-    start_urls = ['http://flow.koolearn.com/shiti/list-1-4-0-1.html']
+    start_urls = []
 
     begin_url = 'http://flow.koolearn.com/shiti/list-{}-{}-0-1.html?yyue=a21bo.50862.201879'
 
-    #for i in range(1, 3):
-    #    for j in range(1, 10):
-    #        start_urls.append(begin_url.format(i, j))
+    for i in range(1, 3):
+        for j in range(1, 10):
+            start_urls.append(begin_url.format(i, j))
 
     base_url = "http://flow.koolearn.com"
     end_url = "?yyue=a21bo.50862.201879"
