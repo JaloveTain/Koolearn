@@ -45,8 +45,16 @@ class ImagesPipeline(ImagesPipeline):
     
     # 处理图片,将图片命名为url(去除./)
     def item_completed(self, results, item, info):
-        image_path = [x['path'] for ok, x in results if ok]
-        os.rename(images_store + image_path[0], images_store + "full/" + item['question_img_link'].replace('/','').replace('.',''))
-        print(results)
-        return item
+        image_link = item['question_img_link']
+        if len(image_link) > 0:
+            image_path = [x['path'] for ok, x in results if ok]
+
+            # 判断文件存在
+            if os.path.exists(images_store + image_path[0]):
+                os.rename(images_store + image_path[0], images_store + "full/" + item['question_img_link'].replace('/','').replace('.',''))
+                print(results)
+            return item
+        else:
+            return item
+
 
